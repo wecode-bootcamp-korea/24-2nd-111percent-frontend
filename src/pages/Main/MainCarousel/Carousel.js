@@ -1,37 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import useCurrency from '../../../utils/useCurrency';
 
 const Carousel = ({ product, bgColorId }) => {
   const colorData = ['#3A5E9D', '#628F92', '#A3B9D3', '#834C4C', '#8B9C5A'];
+  const { handleCurrency } = useCurrency();
+  const history = useHistory();
 
   const bgColorPick = id => {
     const color = colorData[id % colorData.length];
     return color;
   };
 
-  const handleCurrency = num => {
-    const Units = ['', '만', '억', '조'];
-    let answer = '';
-    const unit = 10000;
-    let index = 0;
-    let division = Math.pow(unit, index);
-
-    while (Math.floor(num / division) > 0) {
-      const mod = Math.floor((num % (division * unit)) / division);
-      if (mod) {
-        const modToString = mod
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        answer = `${modToString}${Units[index]} ` + answer;
-      }
-      division = Math.pow(unit, ++index);
-    }
-    return answer;
-  };
-
   return (
-    <Product key={product.id} bgColor={bgColorPick(bgColorId)}>
+    <Product bgColor={bgColorPick(bgColorId)}>
       <DealDescription>
         <ProductTitle>{product.name}</ProductTitle>
         <DealRate>
@@ -46,9 +29,13 @@ const Carousel = ({ product, bgColorId }) => {
             {handleCurrency(product.target_amount)}
             <Won>원</Won>
           </DealEarningAmount>
-          <Link to="/">
-            <Button>상품 보러가기</Button>
-          </Link>
+          <Button
+            onClick={() => {
+              history.push(`/detail/${product.id}`);
+            }}
+          >
+            상품 보러가기
+          </Button>
         </DealInfo>
       </DealDescription>
       <ImgWrapper>
@@ -112,7 +99,7 @@ const Won = styled.span`
   margin-left: -0.2em;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   width: 100px;
   padding: 15px 0;
   border-radius: 5px;
@@ -123,6 +110,10 @@ const Button = styled.div`
   text-align: center;
   margin-top: 3em;
   box-shadow: 0 3px 8px ${props => props.theme.gray};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ImgWrapper = styled.div`

@@ -2,42 +2,29 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import InvestSummary from './InvestSummary';
 import Deposit from './Deposit';
+import fetchData from '../../service/data-fetch';
+import axios from 'axios';
 
 function MyInfo() {
   const [tabIndex, setTabIndex] = useState(1);
   const [myInfo, setMyInfo] = useState({});
   const [myInfo2, setMyInfo2] = useState([]);
-  const [depositPuls, setDepositPuls] = useState('');
+  const [depositPlus, setDepositPlus] = useState('');
   const [value, setValue] = useState('');
+  const data = new fetchData();
 
   useEffect(() => {
-    fetch('http://10.58.7.120:8000/transactions/portfolio', {
-      method: 'GET',
-      headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.jI8pFUQQxu7e--phkPUczn3a6f9k_8NYeg8njqtVKKg          ',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setMyInfo(data.results);
-        setDepositPuls(data.results.deposit_information.deposit_balance);
-      });
+    data.portfolioView(localStorage.getItem('token')).then(data => {
+      setMyInfo(data.results);
+      setDepositPlus(data.results.deposit_information.deposit_balance);
+    });
   }, []);
 
   useEffect(() => {
-    fetch(`http://10.58.7.126:8000/transactions/transaction${value}`, {
-      method: 'GET',
-      headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.jI8pFUQQxu7e--phkPUczn3a6f9k_8NYeg8njqtVKKg          ',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setMyInfo2(data.transactions);
-      });
-  }, [value]);
+    data.depositView(value, localStorage.getItem('token')).then(data => {
+      setMyInfo2(data.transactions);
+    });
+  }, [value, depositPlus]);
 
   const MAPPING_MyInfoTab = {
     1: (
@@ -56,8 +43,8 @@ function MyInfo() {
         cumulativeProfit={
           myInfo.investment_general_infomation?.cumulative_profit
         }
-        depositPuls={depositPuls}
-        setDepositPuls={setDepositPuls}
+        depositPlus={depositPlus}
+        setDepositPlus={setDepositPlus}
       />
     ),
     4: (
@@ -67,8 +54,8 @@ function MyInfo() {
         investingTab={myInfo.investment_current_condition?.investing}
         depositAccount={myInfo.deposit_information?.deposit_account}
         data={myInfo2}
-        depositPuls={depositPuls}
-        setDepositPuls={setDepositPuls}
+        depositPlus={depositPlus}
+        setDepositPlus={setDepositPlus}
         setValue={setValue}
         value={value}
       />

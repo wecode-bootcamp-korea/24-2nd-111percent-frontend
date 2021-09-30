@@ -13,7 +13,7 @@ function Map(props) {
     const { kakao } = window;
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude),
-      level: 5,
+      level: 10,
     };
 
     const map = new kakao.maps.Map(container, options);

@@ -1,51 +1,44 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import MyInfo from './MyInfo';
+import fetchData from '../../service/data-fetch';
+import axios from 'axios';
 
 function Deposit({
   accountNumber,
   depositAccount,
   data,
-  depositPuls,
-  setDepositPuls,
+  depositPlus,
+  setDepositPlus,
   setValue,
   value,
 }) {
   const [inputValue, setInputValue] = useState(0);
+  const getData = new fetchData();
 
   const handleInputValue = num => {
     setInputValue(inputValue + num);
-    if (inputValue >= depositPuls) {
-      setInputValue(depositPuls);
+    if (inputValue >= depositPlus) {
+      setInputValue(depositPlus);
     }
   };
 
   const handleInputDeposit = () => {
-    setInputValue(depositPuls);
+    setInputValue(depositPlus);
   };
 
   const handleInput = e => {
     setInputValue(e.target.value);
-    if (inputValue >= depositPuls) {
-      setInputValue(depositPuls);
+    if (inputValue >= depositPlus) {
+      setInputValue(depositPlus);
     }
   };
 
   const postWithdraw = () => {
-    fetch('http://10.58.3.237:8000/transactions/deposit', {
-      method: 'POST',
-      headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0._fleYhEIx5512GwejJ70cid7blXOsKEmcbf5zeHBHtA',
-      },
-      body: JSON.stringify({
-        amounts: Number(inputValue),
-      }),
-    })
-      .then(response => response.json())
+    getData
+      .widthDrawView(inputValue, localStorage.getItem('token'))
       .then(response => {
         if (response.message === 'SUCCESS') {
-          setDepositPuls(response.deposit_balance);
+          setDepositPlus(response.deposit_balance);
           setInputValue('');
         }
       });
@@ -57,13 +50,13 @@ function Deposit({
         <Box className="depositBox">
           <Title>예치금</Title>
           <AccountNumber>{depositAccount}</AccountNumber>
-          <MyMoney>{depositPuls.toLocaleString('en')}원</MyMoney>
+          <MyMoney>{depositPlus.toLocaleString('en')}원</MyMoney>
         </Box>
         <Box>
           <Title>예치금 출금</Title>
           <div className="dt">
             <Available>출금 가능 금액 </Available>
-            <Amount>{depositPuls.toLocaleString('en')}원</Amount>
+            <Amount>{depositPlus.toLocaleString('en')}원</Amount>
           </div>
           <Available>받을 계좌</Available>
           <Amount>{accountNumber}</Amount>

@@ -14,8 +14,8 @@ function InvestSummary({
   yieldTab,
   rateOfReturn,
   cumulativeProfit,
-  depositPuls,
-  setDepositPuls,
+  depositPlus,
+  setDepositPlus,
 }) {
   return (
     <InvestSummaryContainer>
@@ -25,8 +25,8 @@ function InvestSummary({
         loss={loss}
         investingTab={investingTab}
         accountNumber={accountNumber}
-        depositPuls={depositPuls}
-        setDepositPuls={setDepositPuls}
+        depositPlus={depositPlus}
+        setDepositPlus={setDepositPlus}
       />
       <Article
         deposit={deposit}
@@ -38,7 +38,7 @@ function InvestSummary({
         yieldTab={yieldTab}
         rateOfReturn={rateOfReturn}
         cumulativeProfit={cumulativeProfit}
-        depositPuls={depositPuls}
+        depositPlus={depositPlus}
       />
     </InvestSummaryContainer>
   );

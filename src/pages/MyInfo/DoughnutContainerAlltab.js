@@ -15,7 +15,11 @@ function DoughnutContainerAllTab({
           data={{
             datasets: [
               {
-                data: [investing, investmentCompleted, loss],
+                data: [
+                  investing === 0 ? 1 : investing,
+                  investmentCompleted,
+                  loss,
+                ],
                 backgroundColor: [
                   'rgb(108, 57, 211)',
                   'rgb(222, 222, 244)',

@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import fetchData from '../../service/data-fetch';
+import axios from 'axios';
 
-function Aside({ investingTab, accountNumber, depositPuls, setDepositPuls }) {
+function Aside({ investingTab, accountNumber, depositPlus, setDepositPlus }) {
   const [depositValue, setDepositValue] = useState('');
+  const data = new fetchData();
 
   const postDeposit = () => {
-    fetch('http://10.58.7.120:8000/transactions/deposit', {
-      method: 'POST',
-      headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.jI8pFUQQxu7e--phkPUczn3a6f9k_8NYeg8njqtVKKg          ',
-      },
-      body: JSON.stringify({
-        amounts: Number(depositValue),
-      }),
-    })
-      .then(response => response.json())
+    data
+      .sendDeposit(depositValue, localStorage.getItem('token'))
       .then(response => {
         if (response.message === 'SUCCESS') {
-          setDepositPuls(response.deposit_balance);
+          setDepositPlus(response.deposit_balance);
           setDepositValue('');
         }
       });
@@ -42,7 +36,7 @@ function Aside({ investingTab, accountNumber, depositPuls, setDepositPuls }) {
           />
           <span onClick={postDeposit}>입금하기</span>
         </DepositInput>
-        <MyMoney>{depositPuls?.toLocaleString('en')}원</MyMoney>
+        <MyMoney>{depositPlus?.toLocaleString('en')}원</MyMoney>
       </Box>
       <Section>
         <TodayContainer>

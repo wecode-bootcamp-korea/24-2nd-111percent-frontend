@@ -11,7 +11,7 @@ function DoughnutContainerInvestingTab({ investingTab }) {
             datasets: [
               {
                 data: [
-                  investingTab?.[0].price,
+                  investingTab?.[0].price === 0 ? 1 : investingTab[0].price,
                   investingTab?.[1].price,
                   investingTab?.[2].price,
                 ],

@@ -15,7 +15,7 @@ function Article({
   rankTab,
   rateOfReturn,
   cumulativeProfit,
-  depositPuls,
+  depositPlus,
 }) {
   const [isSubTextOn, setToggleSubText] = useState(false);
   const [tabIndex, setTabIndex] = useState(1);
@@ -65,7 +65,7 @@ function Article({
             자산 <SubText>예치금+투자 중 원금</SubText>
           </BoxTitle>
           <AssetBox asset>
-            {Number(depositPuls + investingTab?.[0].price).toLocaleString('en')}
+            {Number(depositPlus + investingTab?.[0].price).toLocaleString('en')}
             원
           </AssetBox>
         </AssetBox>

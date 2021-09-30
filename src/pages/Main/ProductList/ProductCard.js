@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaChartPie } from 'react-icons/fa';
 
 const ProductList = ({ product }) => {
+  const history = useHistory();
   const handleCurrency = num => {
     const Units = ['', '만', '억', '조'];
     let answer = '';
@@ -25,7 +27,12 @@ const ProductList = ({ product }) => {
   };
 
   return (
-    <Product key={product.id}>
+    <Product
+      key={product.id}
+      onClick={() => {
+        history.push(`/detail/${product.id}`);
+      }}
+    >
       <Link to="/">
         <ProductImageWrapper>
           <ProductImg src={product.image} />
