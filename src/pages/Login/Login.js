@@ -55,9 +55,12 @@ const Login = () => {
             if (res.access_token) {
               history.push('/');
             } else {
+              alert('회원가입 페이지로 이동합니다.');
               history.push({
                 pathname: '/signUp',
-                state: { res },
+                state: {
+                  res,
+                },
               });
             }
           });

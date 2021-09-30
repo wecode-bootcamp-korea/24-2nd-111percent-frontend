@@ -13,7 +13,7 @@ class fetchData {
 
   async itemDetail(id) {
     const response = await axios.get(
-      `http://10.58.1.49:8000/investments/${id}`
+      `http://10.58.7.126:8000/investments/${id}`
     );
     const result = response.data;
     return result;
@@ -37,7 +37,7 @@ class fetchData {
   }
 
   async logIn(email, password) {
-    const response = await axios.post('http://10.58.1.169:8000/users/signin', {
+    const response = await axios.post('http://10.58.7.120:8000/users/signin', {
       email: email,
       password: password,
     });
@@ -52,7 +52,7 @@ class fetchData {
     };
 
     const response = await axios.post(
-      'http://10.58.3.237:8000/users/signin/kakao',
+      'http://10.58.7.120:8000/users/signin/kakao',
       null,
       { headers: HEADERS }
     );
@@ -61,7 +61,7 @@ class fetchData {
   }
 
   async signUp(refs) {
-    const response = await axios.post('http://10.58.1.169:8000/users/signup', {
+    const response = await axios.post('http://10.58.7.120:8000/users/signup', {
       name: refs.name,
       email: refs.email,
       password: refs.password,

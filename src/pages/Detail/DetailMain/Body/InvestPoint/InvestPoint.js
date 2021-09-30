@@ -1,9 +1,11 @@
 import React from 'react';
 import PointList from './PointList';
+import useCurrency from '../../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 function InvestPoint(props) {
   const { investment } = props;
+  const { handleCurrency } = useCurrency();
 
   const getRate = amount => {
     const rate = amount * (1 + investment.return_rate * 0.01);
@@ -26,9 +28,9 @@ function InvestPoint(props) {
     },
     {
       name: '첫 예상 지급일 11월 30일',
-      detail: `500만원 투자 시 ${getRate(
-        500
-      ).toLocaleString()}만원의 수익이 만기일시상환 방식으로 지급됩니다.`,
+      detail: `500만원 투자 시 ${handleCurrency(
+        getRate(5000000)
+      )}원의 수익이 만기일시상환 방식으로 지급됩니다.`,
       img: '/assets/icons/calendar.png',
     },
   ];

@@ -11,11 +11,15 @@ function SignUp() {
   const history = useHistory();
   const location = useLocation();
 
+  //  카카오 로그인 시 기본적으로 받아오는 요소들
+  const kakaoMail = location.state.res.user_email ?? null;
+  const kakaoName = location.state.res.user_name ?? null;
+
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
     initialValues: {
-      email: '',
+      email: kakaoMail,
       password: '',
-      name: '',
+      name: kakaoName,
       phone_number: '',
       bank_name: '',
       account_number: '',
@@ -34,16 +38,6 @@ function SignUp() {
     validate,
   });
 
-  //  카카오 로그인 시 기본적으로 받아오는 요소들
-  const kakaoMail =
-    location.state.user_email === (null || undefined)
-      ? null
-      : location.state.email;
-  const kakaoName =
-    location.state.user_name === (null || undefined)
-      ? null
-      : location.state.name;
-
   return (
     <Wrapper>
       <Helmet>
@@ -58,7 +52,6 @@ function SignUp() {
                 type="text"
                 name="name"
                 placeholder="성함"
-                defaultValue={kakaoName}
                 onChange={handleChange}
                 value={values.name}
               />
@@ -69,7 +62,6 @@ function SignUp() {
                 name="email"
                 type="email"
                 placeholder="이메일 주소"
-                defaultValue={kakaoMail}
                 onChange={handleChange}
                 value={values.email}
               />

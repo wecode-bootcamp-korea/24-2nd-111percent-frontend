@@ -81,10 +81,16 @@ function Invest(props) {
       >
         <H1>얼마를 투자할까요?</H1>
         <Buttons>
-          <Button className={clicked ? 'clicked' : ''} onClick={handleClick}>
+          <Button
+            className={clicked ? 'clicked' : ''}
+            onClick={handleClick}
+            type="button"
+          >
             +0.5
           </Button>
-          <Button onClick={investMax}>최대금액</Button>
+          <Button onClick={investMax} type="button">
+            최대금액
+          </Button>
         </Buttons>
         <InvestInput
           amount={amount}

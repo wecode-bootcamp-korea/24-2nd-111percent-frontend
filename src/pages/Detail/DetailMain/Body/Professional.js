@@ -7,7 +7,7 @@ function Professional() {
       <H1>전문가 확인</H1>
       <Wrapper>
         <Image>
-          <img src="/images/lawyer.jpg" alt="변호사_프로필_이미지" />
+          <img src="/image/lawyer.jpg" alt="변호사_프로필_이미지" />
         </Image>
         <Desc>
           <Label>조영린 변호사</Label>

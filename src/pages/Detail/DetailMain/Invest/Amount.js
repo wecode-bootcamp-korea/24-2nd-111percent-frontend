@@ -1,30 +1,12 @@
 import React from 'react';
+import useCurrency from '../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 const Amount = props => {
   const { amount, return_percent } = props;
+  const { handleCurrency } = useCurrency();
 
   const finalAmount = amount * return_percent * 10000;
-
-  const handleCurrency = num => {
-    const Units = ['', '만'];
-    let answer = '';
-    const unit = 10000;
-    let index = 0;
-    let division = Math.pow(unit, index);
-
-    while (Math.floor(num / division) > 0) {
-      const mod = Math.floor((num % (division * unit)) / division);
-      if (mod) {
-        const modToString = mod
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        answer = `${modToString}${Units[index]} ` + answer;
-      }
-      division = Math.pow(unit, ++index);
-    }
-    return answer;
-  };
 
   return (
     <Wrapper>

@@ -1,33 +1,15 @@
 import React from 'react';
 import DataList from './DataList';
+import useCurrency from '../../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 const Data = props => {
   const { evaluation, bond, target_amount, spare, collection } = props;
+  const { handleCurrency } = useCurrency();
 
   const getRate = amount => {
     const rate = ((amount / evaluation) * 100).toFixed(2);
     return rate;
-  };
-
-  const handleCurrency = num => {
-    const Units = ['', '만', '억', '조'];
-    let answer = '';
-    const unit = 10000;
-    let index = 0;
-    let division = Math.pow(unit, index);
-
-    while (Math.floor(num / division) > 0) {
-      const mod = Math.floor((num % (division * unit)) / division);
-      if (mod) {
-        const modToString = mod
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        answer = `${modToString}${Units[index]} ` + answer;
-      }
-      division = Math.pow(unit, ++index);
-    }
-    return answer;
   };
 
   const doughnutData = [

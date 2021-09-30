@@ -1,30 +1,11 @@
 import React from 'react';
+import useCurrency from '../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 function Summary(props) {
   const { investment } = props;
   const { loan_type, evaluation_price, repayment_day, LTV } = investment;
-
-  const handleCurrency = num => {
-    const Units = ['', '만', '억', '조'];
-    let answer = '';
-    const unit = 10000;
-    let index = 0;
-    let division = Math.pow(unit, index);
-
-    while (Math.floor(num / division) > 0) {
-      const mod = Math.floor((num % (division * unit)) / division);
-      if (mod) {
-        // 아라비안 숫자 3자리마다 콤마(,)를 찍어주고 있다.
-        const modToString = mod
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        answer = `${modToString}${Units[index]} ` + answer;
-      }
-      division = Math.pow(unit, ++index);
-    }
-    return answer;
-  };
+  const { handleCurrency } = useCurrency();
 
   return (
     <Wrapper>

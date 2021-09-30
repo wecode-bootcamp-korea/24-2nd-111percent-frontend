@@ -9,8 +9,8 @@ function Map(props) {
 
   useEffect(() => {
     // make map
-    const { kakao } = window;
     const container = document.getElementById('map');
+    const { kakao } = window;
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude),
       level: 5,

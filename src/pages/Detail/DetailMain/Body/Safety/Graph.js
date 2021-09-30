@@ -1,10 +1,12 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import Data from './Data';
+import useCurrency from '../../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 const Graph = props => {
   const { target_amount, evaluation, bond, collection } = props;
+  const { handleBillion } = useCurrency();
   const spare = evaluation - bond - target_amount;
 
   const expData = {
@@ -17,11 +19,6 @@ const Graph = props => {
         cutout: '70%',
       },
     ],
-  };
-
-  const handleBillion = num => {
-    const billion = (num / 100000000).toFixed(2);
-    return billion;
   };
 
   return (

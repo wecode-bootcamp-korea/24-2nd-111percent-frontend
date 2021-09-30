@@ -1,5 +1,6 @@
 import React from 'react';
 import Graph from './Graph';
+import useCurrency from '../../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 function Safety(props) {
@@ -10,6 +11,8 @@ function Safety(props) {
     priority_bond_amount,
     bidding_rate,
   } = investment;
+
+  const { handleBillion } = useCurrency();
 
   const collection =
     bidding_rate * 0.01 * evaluation_price - priority_bond_amount;
@@ -27,8 +30,8 @@ function Safety(props) {
       <Letter>
         해당 상품의 감정가는 KB시세 일반가 적용이며 경기 남양주시 화도읍 최근
         3개월 낙찰가율은 {bidding_rate}%로 회수예상가액은{' '}
-        {(collection / 100000000).toFixed(1)}억원 입니다.(단, 낙찰가율이 100%를
-        초과하는 경우 100% 적용)
+        {handleBillion(collection)}억원 입니다.(단, 낙찰가율이 100%를 초과하는
+        경우 100% 적용)
       </Letter>
     </Wrapper>
   );

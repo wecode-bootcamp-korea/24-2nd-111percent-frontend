@@ -1,16 +1,13 @@
 import React from 'react';
 import StatusBar from './StatusBar';
 import { Helmet } from 'react-helmet';
+import useCurrency from '../../../../utils/useCurrency';
 import styled from 'styled-components';
 
 function Title(props) {
   const { investment } = props;
   const { current_amount, target_amount } = investment;
-
-  const handleMillion = num => {
-    const million = num / 10000;
-    return million;
-  };
+  const { handleMillion } = useCurrency();
 
   return (
     <TitleWrapper>
@@ -42,8 +39,8 @@ function Title(props) {
           <Dl>
             <dt>모집현황</dt>
             <dd>
-              {handleMillion(current_amount).toLocaleString()} /{' '}
-              {handleMillion(target_amount).toLocaleString()} 만원
+              {handleMillion(current_amount)} / {handleMillion(target_amount)}{' '}
+              만원
             </dd>
           </Dl>
         </DirWrapper>
