@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ProductCard from './ProductCard';
 import MainLoanInfo from '../MainLoanInfo/MainLoanInfo';
+import fetchData from '../../../service/data-fetch';
 import axios from 'axios';
 
 class ProductList extends React.Component {
@@ -13,13 +14,15 @@ class ProductList extends React.Component {
       initialItems: 0,
       items: 6,
     };
+
+    this.data = new fetchData();
   }
 
   componentDidMount() {
-    axios.get('http://10.58.1.217:8000/investments').then(res => {
+    this.data.listView().then(res => {
       this.setState({
-        initialList: res.data.investments,
-        productList: res.data.investments.slice(0, this.state.items),
+        initialList: res.investments,
+        productList: res.investments.slice(0, this.state.items),
       });
     });
 
