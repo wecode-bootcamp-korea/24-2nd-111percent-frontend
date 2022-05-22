@@ -8,7 +8,7 @@ const EstateDetail = props => {
     completion_date,
     household,
     supply_area,
-    private_area,
+    exclusive_private_area,
     lease_status,
   } = details;
 
@@ -29,7 +29,7 @@ const EstateDetail = props => {
           <th>공급면적</th>
           <td>{supply_area}㎡</td>
           <th>전용면적</th>
-          <td>{private_area}㎡</td>
+          <td>{exclusive_private_area}㎡</td>
         </tr>
         <tr>
           <th>임차여부</th>

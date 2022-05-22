@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductCard from './ProductCard';
 import MainLoanInfo from '../MainLoanInfo/MainLoanInfo';
 import fetchData from '../../../service/data-fetch';
+import axios from 'axios';
 
 class ProductList extends React.Component {
   constructor() {
